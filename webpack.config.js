@@ -76,7 +76,7 @@ module.exports = {
     // 개발 서버 옵션
     devServer: {
         host: 'localhost',
-        // port: 8080,
-        // hot: true
+        port: 8081,
+        hot: true
     }
 }
