@@ -1,6 +1,7 @@
-.cache
-.idea
-.DS_Store 
-node_modules
-dist
-docs
+.cache/
+.idea/
+.DS_Store/ 
+node_modules/
+dist/
+
+.env  
