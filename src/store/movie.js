@@ -113,7 +113,7 @@ export default{
             })
 
             try{
-                const nowPlaying = await  url.nowPlaying(payload)
+                const nowPlaying = await url.nowPlaying(payload)
                commit('updateState', {
                     nowplaying: nowPlaying.data
                })
