@@ -4,6 +4,7 @@ const path = require('path');
 const HtmlPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader'); // 3번째
+const Dotenv = require('dotenv-webpack');
 
 // export
 module.exports = {
@@ -70,7 +71,8 @@ module.exports = {
             { from: 'static' } // 여기서 static은 우리가 만들어 놓은 파일 이름!
         ]
         }),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        new Dotenv
     ],
 
     // 개발 서버 옵션

@@ -20,6 +20,7 @@
     "babel-loader": "^8.2.2",
     "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^5.2.6",
+    "dotenv-webpack": "^7.0.3",
     "eslint": "^7.30.0",
     "eslint-plugin-vue": "^7.13.0",
     "file-loader": "^6.2.0",

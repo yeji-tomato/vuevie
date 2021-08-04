@@ -1,4 +1,5 @@
-import axios from 'axios'
+// import axios from 'axios'
+import { url } from "../../utils/axios";
 
 export default{ 
     namespaced: true,
@@ -25,23 +26,26 @@ export default{
     },
     actions: {
         async searchMovies({ state, commit }, payload){
-           if(state.loading) return
+            const { title, page } = payload
+
+            if(state.loading) return
 
             commit('updateState',{
                 loading: true
             })
 
             try{
-                const res = await _fetchMovie({
-                    ...payload
-                })
-                const { results, total_pages } = res.data
+                // const res = await _fetchMovie({
+                //     ...payload
+                // })
+                const search = await url.search(title, page)
+                const { results, total_pages } = search.data
                 commit('updateState', {
                     movies: results,
                     pages : total_pages,
                     title: payload.title
                 })
-            }catch(message){
+            }catch({message}){
                 commit('updateState', {
                     movies: [],
                     message
@@ -53,6 +57,8 @@ export default{
             }
         },
         async searchMovieWithId({ state ,commit }, payload){
+            const { id } = payload
+
             if(state.loading) return
 
             commit('updateState',{
@@ -61,11 +67,9 @@ export default{
             })
 
             try{
-                const res = await _fetchMovie(payload)
-                const video = await _videoPopular(payload)
+               const theMovie = await  url.movieDetail(id)
                commit('updateState', {
-                   theMovie: res.data,
-                   video: video.data
+                   theMovie: theMovie .data
                })
             }catch(error){
                 commit('updateState',{
@@ -86,9 +90,9 @@ export default{
             })
 
             try{
-                const res = await _videoPopular(payload)
+                const popular = await  url.popular(payload)
                commit('updateState', {
-                    popular: res.data
+                    popular: popular.data
                })
             }catch(error){
                 commit('updateState',{
@@ -109,9 +113,9 @@ export default{
             })
 
             try{
-                const res = await _nowPlayingMovie(payload)
+                const nowPlaying = await  url.nowPlaying(payload)
                commit('updateState', {
-                    nowplaying: res.data
+                    nowplaying: nowPlaying.data
                })
             }catch(error){
                 commit('updateState',{
@@ -126,60 +130,87 @@ export default{
     }
 }
 
-const movieUrl = 'https://api.themoviedb.org/3'
-const TMDB_API_KEY = 'cb772a50acc4cd6917b12854484b9d91'
-const lang = 'ko-kR'
 
-function _fetchMovie(payload){
-    const { title, page, id } = payload
-    const url = id
-    ? `${movieUrl}/movie/${id}?api_key=${TMDB_API_KEY}&language=${lang}`
-    : `${movieUrl}/search/movie?api_key=${TMDB_API_KEY}&language=${lang}&query=${title}&page=${page}`
+// function _fetchMovie(payload){
+//     // return await axios.post('/.netlify/functions/movie', payload)
     
-    return new Promise((resolve, reject) => {
-        axios.get(url)
-        .then(res => {
-            resolve(res)
-        })
-        .catch(err => {
-            reject(err.message)
-        })
-    })
-}
+// }
+
+// function _fetchMovie(payload){
+//     const { title, page, id } = payload
+//     const request = axios.create({
+//         baseURL : 'https://api.themoviedb.org/3/',
+//         params: {
+//             api_key: `${TMDB_API_KEY}`,
+//             langunage: 'ko-kR',
+//         }
+//     })
+
+//     console.log("request: "+ request)
+
+//     const url = {
+//         nowPlaying: () => request.get("movie/now_playing"),
+//         popular: () => request.get("movie/popular"),
+//         movieDetail: () => 
+//         request.get(`movie/${id}`,{
+//             params: { append_to_response: "videos" },
+//         }),
+//         search: () => 
+//         request.get("search/movie",{
+//             params: {
+//                 query: title,
+//                 page: page
+//             }
+//         })
+//     }
+
+    
+//     return new Promise((resolve, reject) => {
+//         axios.get(url)
+//         .then(res => {
+//             console.log("url: "+ url)
+//             resolve(res)
+//         })
+//         .catch(err => {
+//             console.log("url: "+ url.search())
+//             reject(err.message)
+//         })
+//     })
+// }
 
 
-function _videoPopular(payload){
-    const { id } = payload
-    const url = id
-    ? `${movieUrl}/movie/${id}/videos?api_key=${TMDB_API_KEY}&language=${lang}`
-    : `${movieUrl}/movie/popular?api_key=${TMDB_API_KEY}&language=${lang}&page=1`
+// function _videoPopular(payload){
+//     const { id } = payload
+//     const url = id
+//     ? `${movieUrl}/movie/${id}/videos?api_key=${TMDB_API_KEY}&language=${lang}`
+//     : `${movieUrl}/movie/popular?api_key=${TMDB_API_KEY}&language=${lang}&page=1`
 
-    return new Promise((resolve, reject) => {
-        axios.get(url)
-        .then(res => {
-            resolve(res)
-        })
-        .catch(err => {
-            reject(err.message)
-        })
-    })
-}
-
-
-function _nowPlayingMovie(payload){
-    const { id } = payload
-    const url = id
-    ? `${movieUrl}/movie/${id}?api_key=${TMDB_API_KEY}&language=${lang}`
-    : `${movieUrl}/movie/now_playing?api_key=${TMDB_API_KEY}&language=${lang}&page=1`
+//     return new Promise((resolve, reject) => {
+//         axios.get(url)
+//         .then(res => {
+//             resolve(res)
+//         })
+//         .catch(err => {
+//             reject(err.message)
+//         })
+//     })
+// }
 
 
-    return new Promise((resolve, reject) => {
-        axios.get(url)
-        .then(res => {
-            resolve(res)
-        })
-        .catch(err => {
-            reject(err.message)
-        })
-    })
-}
+// function _nowPlayingMovie(payload){
+//     const { id } = payload
+//     const url = id
+//     ? `${movieUrl}/movie/${id}?api_key=${TMDB_API_KEY}&language=${lang}`
+//     : `${movieUrl}/movie/now_playing?api_key=${TMDB_API_KEY}&language=${lang}&page=1`
+
+
+//     return new Promise((resolve, reject) => {
+//         axios.get(url)
+//         .then(res => {
+//             resolve(res)
+//         })
+//         .catch(err => {
+//             reject(err.message)
+//         })
+//     })
+// }
