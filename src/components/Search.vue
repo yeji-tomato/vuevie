@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <input
-      v-model="title"
+      v-model="query"
       class="form-control"
       type="text"
       placeholder="영화제목을 입력해주세요!"
@@ -28,13 +28,13 @@
 export default {
   data(){
     return {
-      title: ''
+      query: ''
     }
   },
   methods: {
     async apply(){
       this.$store.dispatch('movie/searchMovies', {
-        title: this.title
+        query: this.query
       })
     }
   }

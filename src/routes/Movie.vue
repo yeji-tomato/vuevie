@@ -37,7 +37,7 @@
         </div>
         <div
           class="video"
-          v-if="!(video.results == '')"
+          v-if="!(theMovie.videos.results == '')"
           @click="$event.target.classList.toggle('show')">
           <svg
             @click="show=!show"
@@ -53,7 +53,7 @@
           </svg>
           <iframe
             v-show="show"
-            :src="youtube(video.results[0].key)"> </iframe>
+            :src="youtube(theMovie.videos.results[0].key)"> </iframe>
         </div>
       </div>
     </div>
@@ -76,7 +76,6 @@ export default {
   computed: {
     ...mapState('movie',[
       'theMovie',
-      'video',
       'loading'
     ])
   },

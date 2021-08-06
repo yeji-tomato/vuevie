@@ -9,9 +9,16 @@ const request = axios.create({
     }
 })
 
-exports.handler = async function(){
+exports.handler = async function(event){
+    const payload = JSON.parse(event.body)
+    const { id } = payload
+
     try {
-        const { data } = await request.get("movie/now_playing")
+        const { data } = await request.get(`movie/${id}`, 
+        {
+            params: { append_to_response: "videos" },
+        })
+        console.log(data)
         if(data.Error){
             return {
                 statusCode: 400,

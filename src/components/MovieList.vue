@@ -15,10 +15,10 @@
           v-for="movie in movies"
           :key="movie.id" 
           :movie="movie" />
+        <div class="page">
+          <Pagination />
+        </div>
       </div>
-      <nav>
-        <Pagination />
-      </nav>
     </div>
   </div>
 </template>
@@ -38,7 +38,7 @@ export default {
         Pagination
     },
     computed: {
-      ...mapState('movies', [
+      ...mapState('movie', [
         'movies',
         'message',
         'loading'
@@ -69,10 +69,12 @@ export default {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            .page{
+              padding-top: 30px;
+              width: 100%;
+              text-align: center;
+            }
         }
-    }
-    nav{
-        padding-top: 30px;
     }
 }
 </style>
