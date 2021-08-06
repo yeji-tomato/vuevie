@@ -37,7 +37,7 @@ npm install vue-router@4
 
 export default → 기본 내보내기 / 이것을 main.js에서 받아서 사용함
 
-`**index.js**`
+**`index.js`**
 
 ```jsx
 // 페이지를 구성하는 구성파일
@@ -248,7 +248,7 @@ $ npm i -D netlify-cli
 
 ### 반복되는 import 규칙
 
-**`*additionalData*`**
+**`additionalData`**
 
 ```jsx
 module.exports = {
