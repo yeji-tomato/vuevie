@@ -32,14 +32,15 @@ export default{
             })
 
             try{
-                const search = await _searchDetail({
+                const search = await _search({
                     ...payload
                 })
+            
                 const { results, total_pages } = search.data
                 commit('updateState', {
                     movies: results,
                     pages : total_pages,
-                    title: payload.title
+                    query: payload.query
                 })
             }catch({message}){
                 commit('updateState', {
@@ -58,21 +59,18 @@ export default{
 
             commit('updateState',{
                 loading: true,
-                theMovie: [],
-                video: []
+                theMovie: []
             })
 
             try{
-               const theMovie = await _searchDetail(payload)
-               const video = await _videoPopular(payload)
+               const theMovie = await _detail(payload)
+            //    const video = await _videoPopular(payload)
                commit('updateState', {
-                   theMovie: theMovie.data,
-                   video: video.data
+                   theMovie: theMovie.data
                })
             }catch(error){
                 commit('updateState',{
-                    theMovie: [],
-                    video: []
+                    theMovie: []
                 })
             }finally{
                 commit('updateState',{
@@ -89,7 +87,7 @@ export default{
             })
 
             try{
-                const popular = await _videoPopular(payload)
+                const popular = await _popular(payload)
                commit('updateState', {
                     popular: popular.data
                })
@@ -129,13 +127,16 @@ export default{
     }
 }
 
-
-async function _searchDetail(payload){
-    return await axios.post('/.netlify/functions/searchDetail', payload) 
+async function _search(payload){
+    return await axios.post('/.netlify/functions/search', payload) 
 }
 
-async function _videoPopular(payload){
-    return await axios.post('/.netlify/functions/videoPopular', payload) 
+async function _detail(payload){
+    return await axios.post('/.netlify/functions/detail', payload) 
+}
+
+async function _popular(payload){
+    return await axios.post('/.netlify/functions/popular', payload) 
 }
 
 async function _nowPlaying(payload){

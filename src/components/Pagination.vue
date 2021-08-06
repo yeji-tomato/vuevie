@@ -1,11 +1,12 @@
 <template>
   <ul class="pagination justify-content-center">
     <li
-      v-for="p in pages"
+      v-for="(p, index) in pages"
       :key="p"
       class="page-item"
       @click="pageClick(p)">
       <span
+        v-if="index< 10"
         class="page-link">
         {{ p }}
       </span>
@@ -19,10 +20,9 @@ export default {
         pageClick(msg){
             this.$store.dispatch('movie/searchMovies', {
             page: msg,
-            title: this.$store.state.movie.title
+            query: this.$store.state.movie.query
       })
-        }
-    
+    }  
     },
     computed: {
         pages(){

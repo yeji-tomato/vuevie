@@ -1,18 +1,28 @@
 const axios = require('axios')
 const { TMDB_API_KEY } = process.env
 
-const movieUrl = 'https://api.themoviedb.org/3/'
-const lang = 'ko-kR'
+const request = axios.create({
+    baseURL : 'https://api.themoviedb.org/3/',
+    params: {
+        api_key: `${TMDB_API_KEY}`,
+        language: 'ko-kR',
+    }
+})
 
 exports.handler = async function(event){
     const payload = JSON.parse(event.body)
-    const { id } = payload
-    const url = id
-    ?  `${movieUrl}movie/${id}/videos?api_key=${TMDB_API_KEY}&language=${lang}`
-    : `${movieUrl}movie/popular?api_key=${TMDB_API_KEY}&language=${lang}&page=1`
+    const { query, page} = payload
+    
 
     try {
-        const { data } = await axios.get(url)
+        const { data } = await request.get("search/movie", 
+        {
+            params: {
+                query: query,
+                page: page
+            }
+        })
+        console.log(data)
         if(data.Error){
             return {
                 statusCode: 400,
