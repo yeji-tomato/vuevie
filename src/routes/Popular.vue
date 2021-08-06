@@ -1,6 +1,10 @@
 <template>
   <div class="container">
+    <Loader 
+      v-if="loading"
+      fixed />
     <swiper
+      v-else
       :effect="'coverflow'"
       :grab-cursor="true"
       :centered-slides="true"
@@ -15,7 +19,7 @@
       :pagination="true"
       class="mySwiper">
       <swiper-slide
-        v-for="movie in popular"
+        v-for="movie in popular.results"
         :key="movie.id" 
         :movie="movie">
         <RouterLink 
@@ -37,11 +41,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import Loader from '~/components/Loader'
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
 // Import Swiper styles
 import 'swiper/swiper.scss';
-
 import "swiper/components/effect-coverflow/effect-coverflow.min.css"
 import "swiper/components/pagination/pagination.min.css"
 
@@ -52,16 +57,17 @@ import SwiperCore, {
 // install Swiper modules
 SwiperCore.use([EffectCoverflow,Pagination]);
 
-
 export default {
   components: {
+    Loader,
     Swiper,
-    SwiperSlide
+    SwiperSlide,
   },
   computed: {
-    popular(){
-      return this.$store.state.movie.popular.results
-    }
+    ...mapState('movie',[
+      'popular',
+      'loading'
+    ])
   },
    created() {
     this.$store.dispatch("movie/popularMovie", {
@@ -78,12 +84,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~/scss/main";
-
 .container{
   color: $white;
   $width: 400px;
   font-family: 'Noto Sans KR', sans-serif;
+  .loader{
+     text-align: center;
+  }
   .mySwiper{
     // background: $gray-700;
     .swiper-slide {
