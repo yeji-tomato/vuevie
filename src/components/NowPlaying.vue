@@ -74,7 +74,6 @@ export default {
 
 
 <style lang="scss" scoped>
-@import "~/scss/main";
 .container{
   $width: 100%;
   $height: 550px;

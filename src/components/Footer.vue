@@ -10,16 +10,12 @@
 
 
 <style lang="scss" scoped>
-@import '~/scss/main';
 footer{
-    padding: 10px 0;
+    padding: 5px 0;
+    margin-top: 15px;
     text-align: center;
     opacity: .5;
     background: $gray-900;
-    .logo{
-        display: block;
-        margin-bottom: 4px;
-    }
     a{
         color: $gray-500;
         text-decoration: none;

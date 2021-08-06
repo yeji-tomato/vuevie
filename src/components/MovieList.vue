@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Animation from '~/components/Animation'
 import MovieItem from '~/components/MovieItem'
 import Loader from '~/components/Loader'
@@ -37,15 +38,11 @@ export default {
         Pagination
     },
     computed: {
-        movies(){
-            return this.$store.state.movie.movies
-        },
-        message(){
-          return this.$store.state.movie.message
-        },
-        loading(){
-          return this.$store.state.movie.loading
-        }
+      ...mapState('movies', [
+        'movies',
+        'message',
+        'loading'
+      ])
     }
 }
 </script>
