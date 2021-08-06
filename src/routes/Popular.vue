@@ -88,9 +88,7 @@ export default {
   color: $white;
   $width: 400px;
   font-family: 'Noto Sans KR', sans-serif;
-  .loader{
-     text-align: center;
-  }
+  padding-bottom: 30px;
   .mySwiper{
     // background: $gray-700;
     .swiper-slide {
