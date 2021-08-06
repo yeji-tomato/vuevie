@@ -56,12 +56,10 @@ export default {
   },
     computed: {
     nowplaying(){
-      console.log(this.$store.state.movie.nowplaying.results)
       return this.$store.state.movie.nowplaying.results
     }
   },
   created() {
-    //  console.log(this.$route);
     this.$store.dispatch("movie/nowPlayingMovie", {
       id: this.$route.params.id,
     });

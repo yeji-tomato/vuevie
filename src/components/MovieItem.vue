@@ -55,10 +55,6 @@ export default {
     right: 0;
     border: 2px solid $primary;
   }
-//   img{
-//     width: $width;
-//     height: $width * 3 / 2;
-//   }
   .info{
     background-color: rgba($black, .3);
     width: 100%;

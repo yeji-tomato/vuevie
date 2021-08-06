@@ -37,7 +37,7 @@
         </div>
         <div
           class="video"
-          v-if="!(theMovie.videos.results == '')"
+          v-if="!(video.results == '')"
           @click="$event.target.classList.toggle('show')">
           <svg
             @click="show=!show"
@@ -53,7 +53,7 @@
           </svg>
           <iframe
             v-show="show"
-            :src="youtube(theMovie.videos.results[0].key)"> </iframe>
+            :src="youtube(video.results[0].key)"> </iframe>
         </div>
       </div>
     </div>
@@ -76,12 +76,14 @@ export default {
     theMovie() {
       return this.$store.state.movie.theMovie;
     },
+    video() {
+      return this.$store.state.movie.video;
+    },
     loading(){
       return this.$store.state.movie.loading;
     }
   },
   created() {
-    console.log(this.$route);
     this.$store.dispatch("movie/searchMovieWithId", {
       id: this.$route.params.id,
     });

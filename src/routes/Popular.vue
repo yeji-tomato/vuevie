@@ -60,12 +60,10 @@ export default {
   },
   computed: {
     popular(){
-      console.log(this.$store.state.movie.popular)
       return this.$store.state.movie.popular.results
     }
   },
    created() {
-    //  console.log(this.$route);
     this.$store.dispatch("movie/popularMovie", {
       id: this.$route.params.id,
     });
