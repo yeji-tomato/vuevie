@@ -36,14 +36,7 @@ export default {
       this.$store.dispatch('movie/searchMovies', {
         title: this.title
       })
-      // console.log(this.title)
     }
-    // async apply(){
-    //   const TMDB_API_KEY = 'cb772a50acc4cd6917b12854484b9d91'
-
-    //         const res = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&language=ko-KR&query=${this.title}`)
-    //         console.log(res.data)
-    // }
   }
 }
 </script>
