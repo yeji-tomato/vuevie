@@ -28,7 +28,12 @@
             </div>
           </div>
           <img
-            :src="`${image(movie.backdrop_path)}`"
+            id="bigImg"
+            :src="`${bigImage(movie.backdrop_path)}`"
+            alt="" />
+          <img
+            id="smallImg"
+            :src="`${smallImage(movie.poster_path)}`"
             alt="" />
         </RouterLink>
       </swiper-slide>
@@ -65,8 +70,11 @@ export default {
     });
    },
     methods: {
-  image(img) {
+  bigImage(img) {
     return `https://image.tmdb.org/t/p/original/${img}`;
+  },
+  smallImage(img) {
+    return `https://image.tmdb.org/t/p/w500/${img}`;
   }
 }
 }
@@ -117,11 +125,23 @@ export default {
           height: $height;
           background-color: $gray-700;
       }
+      #bigImg{
+          display: block;
+        }
+        #smallImg{
+          display: none;
+        }
+    }
+  }
+  @include media-breakpoint-down(lg){
+     .swiper-container {
+      width: 100%;
+      height: 400px;
     }
   }
   @include media-breakpoint-down(sm){
     .swiper-container {
-      height: 350px;
+      height: 400px;
     }
     .swiper-slide {
       // position: absolute;
@@ -134,6 +154,12 @@ export default {
           .year{
              font-size: 15px;
           }
+        }
+        #bigImg{
+          display: none;
+        }
+        #smallImg{
+          display: block;
         }
       }
     }
