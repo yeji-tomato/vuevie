@@ -9,8 +9,11 @@
       v-else
       class="movie-details">
       <div
-        class="img"
-        :style="{ backgroundImage: `url(${image(theMovie.backdrop_path)}` }"></div>
+        class="img big"
+        :style="{ backgroundImage: `url(${bigImage(theMovie.backdrop_path)}` }"></div>
+      <div
+        class="img small"
+        :style="{ backgroundImage: `url(${smallImage(theMovie.poster_path)}` }"></div>
       <div class="specs">
         <div class="top">
           <div class="title">
@@ -89,8 +92,11 @@ export default {
     ...mapActions('movie',[
       'searchMovieWithId'
     ]),
-    image(img) {
+    bigImage(img) {
       return `https://image.tmdb.org/t/p/original/${img}`;
+    },
+    smallImage(img) {
+      return `https://image.tmdb.org/t/p/w500/${img}`;
     },
     youtube(src) {
       return `https://www.youtube.com/embed/${src}?autoplay=1&mute=1`;
@@ -102,14 +108,21 @@ export default {
 <style lang="scss" scoped>
 .container{
     color: $white;
+    $width: 400px;
     font-family: 'Noto Sans KR', sans-serif;
   .movie-details {
   .img {
     width: 100%;
-    height: 500px;
+    height: $width * 3 / 2;
     background-color: $gray-700;
     background-repeat: no-repeat;
-    background-size: 100% 500px;
+    background-size: 100%  $width * 3 / 2;
+    &.big{
+      display: block;
+    }
+    &.small{
+      display: none;
+    }
   }
   .specs {
     .top {
@@ -158,10 +171,16 @@ export default {
     }
   }
 }
-@include media-breakpoint-down(sm){
+@include media-breakpoint-down(lg){
   .movie-details {
     .img {
-      height: 300px;
+      height: 600px;
+      &.big{
+        display: none;
+      }
+      &.small{
+        display: block;
+      }
     }
     .specs{
       .top{
