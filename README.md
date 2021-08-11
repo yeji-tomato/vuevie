@@ -2,7 +2,7 @@
 TMDb api를 이용한 영화사이트!
 
 ## Deployment / 배포
-[DEMO <br>
+[https://vuevie.netlify.app/#/<br>
 ![FireShot Capture 046 - VUEVIE - vuevie netlify app](https://user-images.githubusercontent.com/59958929/128485863-1d1ea959-5be5-4cde-a453-8d130233cc3f.png)](https://vuevie.netlify.app/#/)
  
 ### webpack으로 시작!
